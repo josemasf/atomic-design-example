@@ -1,16 +1,35 @@
 <template>
     <SearchOrganism @search="searchHandle"/>
-    {{searchTerm}}
+    
+    <div v-for="product in result.data.products" :key="product.id">
+        <CardAtom 
+            :mainImage="product.thumbnail"
+            :title="product.title"
+            :subtitle="product.category"
+            :content="product.description"
+        />
+    </div>
 </template>
 
 <script setup lang="ts">
-import { SearchOrganism } from '@/components';
-import { ref } from 'vue';
+import { SearchOrganism, CardAtom } from '@/components';
+import { getData } from '@/services/api';
+import type { ProductsResult } from '@/services/types/Products';
+import { reactive, ref } from 'vue';
 
 const searchTerm = ref()
+const result: {data: ProductsResult} = reactive({
+    data: {
+        products: [],
+        total: 0
+    }    
+})
 
-const searchHandle = (payload: string) =>{
+const searchHandle = async (payload: string) =>{
 searchTerm.value = payload
+result.data = await getData(searchTerm.value)
+
+
 }
 
 </script>
