@@ -1,5 +1,5 @@
 <template>
-    <SearchOrganism @search="searchHandle"/>
+    <SearchOrganism @search="searchHandle" :loading="loading"/>
     
     <div v-for="product in result.data.products" :key="product.id">
         <CardAtom 
@@ -25,11 +25,14 @@ const result: {data: ProductsResult} = reactive({
     }    
 })
 
+const loading = ref(false)
+
 const searchHandle = async (payload: string) =>{
-searchTerm.value = payload
-result.data = await getData(searchTerm.value)
+    searchTerm.value = payload
+    loading.value = true
+    result.data = await getData(searchTerm.value)
 
-
+    loading.value = false
 }
 
 </script>

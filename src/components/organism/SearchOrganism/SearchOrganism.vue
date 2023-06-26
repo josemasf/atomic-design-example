@@ -1,7 +1,7 @@
 <template>
     <div class="card flex justify-content-center">
         <InputLabelMolecule @update="updateHandle"/>        
-        <ButtonAtom @click="clickHandle"/>
+        <ButtonAtom @click="clickHandle" :loading="loading"/>
     </div>
 </template>
 
@@ -9,6 +9,9 @@
 import {InputLabelMolecule, ButtonAtom} from '@/components'
 import { ref } from 'vue';
 const emits = defineEmits(['search'])
+defineProps({
+    loading: Boolean
+})
 
 const text = ref()
 
