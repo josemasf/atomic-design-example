@@ -1,7 +1,7 @@
 
 <template>
     <div class="card flex justify-content-center">
-        <Button label="Submit" @click="clickHandle" :loading="loading" />
+        <Button :label="label" @click="clickHandle" :loading="loading" />
     </div>
 </template>
 
@@ -10,7 +10,8 @@ import Button from 'primevue/button';
 const emits = defineEmits(['click'])
 
 defineProps({
-    loading: Boolean
+    loading: Boolean,
+    label: String
 })
 
 const clickHandle = () =>{

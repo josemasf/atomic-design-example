@@ -1,7 +1,7 @@
 <template>
     <div class="card flex justify-content-center">
         <InputLabelMolecule @update="updateHandle"/>        
-        <ButtonAtom @click="clickHandle" :loading="loading"/>
+        <ButtonAtom @click="clickHandle" :loading="loading" label="Submit"/>
     </div>
 </template>
 
