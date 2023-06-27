@@ -7,6 +7,8 @@ import App from './App.vue'
 import PrimeVue from 'primevue/config'
 import userEvent from '@testing-library/user-event'
 import router from './router'
+import { dummyProducts } from './mocks/ObejctMother'
+import type { Product } from './services/types'
 
 
 const  server = setupServer()
@@ -31,29 +33,12 @@ describe('App', () => {
 
       await userEvent.click(screen.getByText('About'))
 
+      const products: Product[] = dummyProducts(10)
         server.use(
             rest.get('https://dummyjson.com/products/search', (req, res, ctx) => {              
               return res(ctx.json({
-                "products": [
-                  {
-                    "id": 5,
-                    "title": "Huawei P30",
-                    "description": "Huawei’s re-badged P30 Pro New Edition was officially unveiled yesterday in Germany and now the device has made its way to the UK.",
-                    "price": 499,
-                    "discountPercentage": 10.58,
-                    "rating": 4.09,
-                    "stock": 32,
-                    "brand": "Huawei",
-                    "category": "smartphones",
-                    "thumbnail": "https://i.dummyjson.com/data/products/5/thumbnail.jpg",
-                    "images": [
-                      "https://i.dummyjson.com/data/products/5/1.jpg",
-                      "https://i.dummyjson.com/data/products/5/2.jpg",
-                      "https://i.dummyjson.com/data/products/5/3.jpg"
-                    ]
-                  },                  
-                ],
-                "total": 1,
+                "products": products,
+                "total": products.length,
                 "skip": 0,
                 "limit": 30
               }))
@@ -66,7 +51,7 @@ describe('App', () => {
       await userEvent.type(screen.getByRole('textbox'), 'iphone')
       await userEvent.click(screen.getByText('Submit'))
 
-      await waitFor(()=> screen.getByText('Huawei P30'))
+      await waitFor(()=> screen.getByText(products[3].title))
     })
   })
   

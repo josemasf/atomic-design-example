@@ -6,7 +6,7 @@ import {render, fireEvent, screen, waitFor} from '@testing-library/vue'
 import AboutView from './AboutView.vue'
 import PrimeVue from 'primevue/config'
 import userEvent from '@testing-library/user-event'
-import { dummyArrayProduct } from '@/mocks/ObejctMother'
+import { dummyProduct } from '@/mocks/ObejctMother'
 
 
 const  server = setupServer()
@@ -18,16 +18,13 @@ afterAll(() => server.close())
 describe('AboutView', () => {
 
     it('renders properly', async () => {
-      const dummy = dummyArrayProduct()
-      
+      const dummy = dummyProduct()
+
         server.use(
             rest.get('https://dummyjson.com/products/search', (req, res, ctx) => {           
-            
-          
-            
               return res(ctx.json({
-                "products": dummy,
-                "total": dummy.length,
+                "products": [dummy],
+                "total": 1,
                 "skip": 0,
                 "limit": 30
               }))
@@ -45,7 +42,7 @@ describe('AboutView', () => {
       await userEvent.type(screen.getByRole('textbox'), 'iphone')
       await userEvent.click(screen.getByText('Submit'))
 
-      await waitFor(()=> screen.getByText(dummy[0].title))
+      await waitFor(()=> screen.getByText(dummy.title))
     })
   })
   

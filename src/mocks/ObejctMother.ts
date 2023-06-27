@@ -3,9 +3,8 @@ import { faker } from '@faker-js/faker';
 
 //TODO Object Mother
 
-export function dummyArrayProduct():Product[]{
-    return [
-        {
+export function dummyProduct():Product{
+    return {
             "id": faker.number.int(),
             "title":faker.commerce.productName(),
             "description": faker.commerce.productDescription(),
@@ -21,6 +20,15 @@ export function dummyArrayProduct():Product[]{
                 faker.image.urlPicsumPhotos(),
                 faker.image.urlPicsumPhotos()
             ]
-        }, 
-    ]
+        }
+}
+
+export function dummyProducts(lenght: number):Product[]{
+    const products = new Array()
+
+    for(let i=0; i<lenght;i++){
+        products.push(dummyProduct())
+    }
+
+    return Array.from(products)
 }
