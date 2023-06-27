@@ -7,11 +7,16 @@ export default mergeConfig(
   viteConfig,
   defineConfig({
     test: {
-      environment: 'jsdom',
+      environment: 'happy-dom', //Happy dom has fetch implementation available
       exclude: [...configDefaults.exclude, 'e2e/*'],
       root: fileURLToPath(new URL('./', import.meta.url)),
       transformMode: {
         web: [/\.[jt]sx$/]
+      },
+      coverage:{
+        all:true,
+        include: ['**/src/**/*'],
+        exclude: ['**/src/services/types/**/*', '**/src/main.ts']
       }
     }
   })
