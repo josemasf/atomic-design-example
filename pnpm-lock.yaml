@@ -21,6 +21,9 @@ dependencies:
     version: 2.5.1(vue@3.3.4)
 
 devDependencies:
+  '@faker-js/faker':
+    specifier: ^8.0.2
+    version: 8.0.2
   '@playwright/test':
     specifier: ^1.35.0
     version: 1.35.0
@@ -384,6 +387,11 @@ packages:
   /@eslint/js@8.39.0:
     resolution: {integrity: sha1-WLU2vMhD9M0eAqfmFx2lwED01Es=}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+    dev: true
+
+  /@faker-js/faker@8.0.2:
+    resolution: {integrity: sha1-uraYxdPanFJ0TpZuDj7ttsiwXDc=}
+    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0, npm: '>=6.14.13'}
     dev: true
 
   /@humanwhocodes/config-array@0.11.10:

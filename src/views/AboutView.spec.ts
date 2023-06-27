@@ -6,6 +6,7 @@ import {render, fireEvent, screen, waitFor} from '@testing-library/vue'
 import AboutView from './AboutView.vue'
 import PrimeVue from 'primevue/config'
 import userEvent from '@testing-library/user-event'
+import { dummyArrayProduct } from '@/mocks/ObejctMother'
 
 
 const  server = setupServer()
@@ -17,29 +18,16 @@ afterAll(() => server.close())
 describe('AboutView', () => {
 
     it('renders properly', async () => {
+      const dummy = dummyArrayProduct()
+      
         server.use(
-            rest.get('https://dummyjson.com/products/search', (req, res, ctx) => {              
+            rest.get('https://dummyjson.com/products/search', (req, res, ctx) => {           
+            
+          
+            
               return res(ctx.json({
-                "products": [
-                  {
-                    "id": 5,
-                    "title": "Huawei P30",
-                    "description": "Huawei’s re-badged P30 Pro New Edition was officially unveiled yesterday in Germany and now the device has made its way to the UK.",
-                    "price": 499,
-                    "discountPercentage": 10.58,
-                    "rating": 4.09,
-                    "stock": 32,
-                    "brand": "Huawei",
-                    "category": "smartphones",
-                    "thumbnail": "https://i.dummyjson.com/data/products/5/thumbnail.jpg",
-                    "images": [
-                      "https://i.dummyjson.com/data/products/5/1.jpg",
-                      "https://i.dummyjson.com/data/products/5/2.jpg",
-                      "https://i.dummyjson.com/data/products/5/3.jpg"
-                    ]
-                  },                  
-                ],
-                "total": 1,
+                "products": dummy,
+                "total": dummy.length,
                 "skip": 0,
                 "limit": 30
               }))
@@ -57,7 +45,7 @@ describe('AboutView', () => {
       await userEvent.type(screen.getByRole('textbox'), 'iphone')
       await userEvent.click(screen.getByText('Submit'))
 
-      await waitFor(()=> screen.getByText('Huawei P30'))
+      await waitFor(()=> screen.getByText(dummy[0].title))
     })
   })
   
