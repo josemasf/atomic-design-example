@@ -33,6 +33,8 @@ describe('App', () => {
 
       await userEvent.click(screen.getByText('About'))
 
+
+      //! DONT DO IT. THIS TEST IS IN THE CONTAINER
       const products: Product[] = dummyProducts(10)
         server.use(
             rest.get('https://dummyjson.com/products/search', (req, res, ctx) => {              
