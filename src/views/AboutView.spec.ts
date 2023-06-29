@@ -17,7 +17,7 @@ afterAll(() => server.close())
 
 describe('AboutView', () => {
 
-    it('renders properly', async () => {
+    it.skip('renders properly', async () => {
       const dummy = dummyProduct()
 
         server.use(

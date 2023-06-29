@@ -7,26 +7,17 @@ import userEvent from '@testing-library/user-event'
 import PrimeVue from 'primevue/config'
 
 describe('ButtonAtom', () => {
-  it('should renders properly as button', () => {
-    const {getByRole} = render(ButtonAtom, {
+  it('should renders properly as button', async () => {
+    const {getByRole, emitted} = render(ButtonAtom, {
       global:{
-        plugins: [PrimeVue]
-      }
-    })
-    getByRole('button')
-  })
-  
-  it('should emit click on click', async () => {
-    const {emitted} = render(ButtonAtom, {
-      props:{
-        label: 'send'
+        plugins: [PrimeVue],        
       },
-      global:{
-        plugins: [PrimeVue]
+      props:{
+        label: 'Submit'
       }
     })
-    
-    await userEvent.click(screen.getByText('send'))    
+    getByRole('button') 
+    await userEvent.click(screen.getByText('Submit'))    
     expect(emitted().click)
   })
 })
